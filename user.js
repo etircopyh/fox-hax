@@ -365,7 +365,7 @@ user_pref("browser.low_commit_space_threshold_mb", 4096); // default=200; WINDOW
 user_pref("browser.low_commit_space_threshold_percent", 13); // default=5; LINUX
 user_pref("browser.tabs.min_inactive_duration_before_unload", 300000); // 5min; default=600000
 user_pref('security.sandbox.content.level', 0); // Sandbox content level (Optimal = 2)
-user_pref('fission.autostart', false);
+user_pref('fission.autostart', true); // [DEFAULT] Site isolation for security (Fission)
 // TABS
 //user_pref("browser.sessionstore.restore_on_demand", true);
 user_pref("browser.sessionstore.restore_pinned_tabs_on_demand", true);
@@ -403,7 +403,8 @@ user_pref("media.memory_caches_combined_limit_kb", 2560000);
 user_pref("media.cache_readahead_limit", 7200);
 user_pref("media.cache_resume_threshold", 3600);
 // NETWORK
-user_pref('network.http.http3.enable', false)
+user_pref('network.http.http3.enable', false);
+user_pref("network.http.enable_compression_dictionaries", true); // [FF147+] Faster page loads via HTTP compression dictionaries
 //user_pref("network.buffer.cache.size", 262144);
 //user_pref("network.buffer.cache.count", 128);
 user_pref("network.http.max-connections", 1800);
@@ -455,8 +456,8 @@ user_pref('security.tls.version.max', 4);
 user_pref('security.tls.version.fallback-limit', 3);
 user_pref('security.ssl.enable_false_start', false); // No Google SSL False Start
 user_pref('security.tls.version.enable-deprecated', false); // Enforce TLS 1.0 and 1.1 downgrades as session only
-//user_pref('security.ssl.disable_session_identifiers', true); // Disable SSL session tracking [FPI]
 user_pref('security.tls.enable_0rtt_data', false); // Disable TLS1.3 0-RTT
+user_pref('security.tls.enable_kem', true); // [FF146+] Enable ML-KEM post-quantum cryptography
 user_pref('security.OCSP.enabled', 1);
 //user_pref('security.OCSP.require', true); // OCSP fetch: false = soft-fail, true = hard-fail
 //user_pref("privacy.partition.network_state.ocsp_cache", true); // [DEFAULT: true FF123+]
@@ -474,10 +475,13 @@ user_pref('security.cert_pinning.enforcement_level', 2); // PKP (Public Key Pinn
 //user_pref('network.captive-portal-service.enabled', false);
 //user_pref('network.connectivity-service.enabled', false); // Disable Network Connectivity checks
     /*      == Privacy ==       */
-//user_pref('dom.security.https_only_mode', true); // Enable HTTPS only mode
+user_pref('dom.security.https_only_mode', true); // [FF136+] Enable HTTPS-First mode (upgrades to HTTPS with smart fallback)
 user_pref('dom.security.https_only_mode_pbm', true);
-//user_pref('dom.security.https_only_mode.upgrade_local', true); // Enable HTTPS-Only mode for local resources
+//user_pref('dom.security.https_only_mode.upgrade_local', true); // Enable HTTPS-Only mode for local resources (may break local development tools)
 user_pref('dom.security.https_only_mode_send_http_background_request', false); // Disable HTTP background requests
+    /*      == New Privacy Features (2024-2025) ==       */
+user_pref("privacy.fingerprintingProtection", true); // [FF114+] Enhanced anti-fingerprinting (Phase 2 protections in FF145+)
+user_pref("privacy.bounceTrackingProtection.mode", 1); // [FF133+] Bounce tracking protection
 user_pref('browser.send_pings', false); // Disable 'Hyperlink auditing'
 user_pref("browser.search.separatePrivateDefault", true); // [FF70+]
 user_pref("browser.search.separatePrivateDefault.ui.enabled", true); // [FF71+]
